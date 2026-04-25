@@ -1,0 +1,66 @@
+#importaçãoes de biblioteca
+import random 
+import discord
+
+#função da geração de senha
+def gen_pass(comprimento_da_senha): 
+    
+    caracteres = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%¨&*()-_+=§?/°:;^~´´" 
+    senha = "" 
+    for i in range(comprimento_da_senha): 
+        senha += random.choice(caracteres) 
+    return senha 
+
+comprimento_da_senha = int(input("vou criar uma senha para você! Insira o comprimento")) 
+print("sua senha é:",gen_pass(comprimento_da_senha)) 
+
+#função do rolamento de dados
+def dado(quantidade): 
+     
+    faces =[1,2,3,4,5,6] 
+    resultados = [] 
+    #limita a quantidade de dados que o usuario pode usar
+    if quantidade > 15: 
+        print("Limite máximo é 15 dados!") 
+        return 
+        
+    for i in range(quantidade): 
+        numero = random.choice(faces) 
+        resultados.append(numero) 
+    return resultados 
+
+quantidade = int(input("vou lnçar um dado para você! Me diga quantos dados voce quer que eu lançe(max:15)")) 
+print(dado(quantidade))
+
+#função do jogo
+def jogo():
+    aleatorio = random.randint(0,200)
+    count = 0
+    while count < 200:
+        numero = int(input("tente adivinhar um numero de 1 a 200"))
+
+
+        if numero == aleatorio:
+            print("você acerou o número!")
+            break
+        elif numero > aleatorio:
+            print("você errou o número, o número é menor")
+            count += 1
+        elif numero < aleatorio:
+            print("você errou o número, o número é maior")
+            count += 1
+        else:
+            print("coloque um número entre 1 a 200")
+    if count == 200:
+        True
+print(jogo())
+
+#comando que fará que o bot mande comandos no chat
+
+@bot.command()
+async def meme(ctx):
+    with open('images/mem1.png', 'rb') as f:
+        #Vamos armazenar o arquivo convertido da biblioteca do Discord nesta variável!
+        picture = discord.File(f)
+    # Podemos então enviar esse arquivo como um parâmetro
+    await ctx.send(file=picture)
