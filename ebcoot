@@ -1,0 +1,66 @@
+import discord, os, random, requests, aiohttp
+from discord.ext import commands
+#from bot_logic import gen_pass
+
+# um bot que ajude pessoas que se preocupam com o meio ambiente e querem aprender 
+# mais sobre práticas ecológicas e maneiras de reduzir o desperdício.
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+#definindo o prefixo do bot
+bot = commands.Bot(command_prefix='&', intents=intents)
+
+#comando de confirmação
+@bot.event
+async def on_ready():
+    print(f"estamos logados como {bot.user}! ")
+
+#comando de inicialização, ola
+@bot.command(name = "ola")
+async def ola(ctx):
+        await ctx.send(f"ola!. Eu ebcoot, um bot ecologico, e busco ajudar quem se procupa com o meio ambiente, e quer aprender sobre práticas ecológicas e maneiras de reduzir o desperdício. ")
+
+#comando de ajuda
+@bot.command(name = "ajuda")
+async def ajuda(ctx):
+      await ctx.send(f"meus comandos são:")
+      await ctx.send(f"1.&ola - me apresento")
+      await ctx.send(f"2.&lixeiras - te instruo sobre as cores das lixeiras")
+      await ctx.send(f"3.&praticas - lista práticas ecológicas(10 práticas)")
+      await ctx.send(f"4.&reciclagem - te dá 10 ideias de como desperdicar menos fazendo uma reciclagem")
+
+#comando das lixeiras
+@bot.command(name = "lixeiras")
+async def lixeiras(ctx):
+      await ctx.send(f"aqui vai um guia para as cores das lixeiras:")
+      await ctx.send(f"lixeira azul: papel/papelão")
+      await ctx.send(f"lixeira vermelha: plástico/isopor")
+      await ctx.send(f"lixeira verde: vidro")
+      await ctx.send(f"lixeira amarela: metal")
+      await ctx.send(f"lixeira preta: madeira")
+      await ctx.send(f"lixeira laranja: perigoso/contaminado")
+      await ctx.send(f"lixeira branca: ambulátorio/ serviços de saúde")
+      await ctx.send(f"lixeira roxa: rádiotivos")
+      await ctx.send(f"lixeira marrom: organicos")
+      await ctx.send(f"lixeira cinza: não-reciclados/misturados")
+      with open(f'images_ebcoot/lixeiras.webp', 'rb') as f:
+        picture = discord.File(f)
+      await ctx.send(file=picture)
+
+#práticas ecológicas
+@bot.command(name = "praticas")
+async def praticas(ctx):
+     boas = ["Separar papel, plástico, metal e vidro facilita o reaproveitamento e reduz lixo em aterros.","Fechar torneiras, consertar vazamentos e reutilizar água quando possível.","Apagar luzes desnecessárias, usar lâmpadas LED e desligar aparelhos da tomada.","Caminhar, andar de bicicleta, usar transporte público ou compartilhar caronas.", "Trocar copos, sacolas e canudos descartáveis por versões reutilizáveis.", "Comprar apenas o necessário e priorizar produtos duráveis.", "Árvores ajudam na qualidade do ar, sombra e equilíbrio ambiental.","Planejar compras e aproveitar melhor os alimentos.","Dar novos usos para objetos antes de descartá-los.","Transformar restos orgânicos em adubo natural para plantas."]
+     qualquer = random.choice(boas)
+     await ctx.send(f"{qualquer}")
+
+#comando de reciclagem
+@bot.command(name = "reciclagem")
+async def reciclagem(ctx):
+     coisa = ["com papel e papelão usado você pode fazer papel machê!", "você pode vender latas de refrgerante e cerveja!", "com potes você pode fazer porta lápis!", "com sacolas de mercado, você pode fazer rabiolas de pipas!", "lembre-se, nem tudo pode ser reutilizado", "com sacolas de mercado, você pode fazer um paraquedas para seus bonecos", "você pode fazer flores bonitas com latas de refrigerante", "você pode fazer um funil com gargalos de garrafas pets", "você pode reutilizar tampas de garrafas para fazer jogos caseiros", "você pode fazr um carrinho com pálitoas de churrasco, garrafas e suas tampas"]
+     seila = random.choice(coisa)
+     await ctx.send(f"{seila}")
+    
+#inicialização do bot
+bot.run("meu_tolkem_aqui")
